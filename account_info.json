@@ -1,0 +1,44 @@
+{
+    "kind": "calendar#calendarListEntry",
+    "etag": "\"1658782313536000\"",
+    "id": "lau.kiaran@gmail.com",
+    "summary": "lau.kiaran@gmail.com",
+    "timeZone": "America/Los_Angeles",
+    "colorId": "14",
+    "backgroundColor": "#9fe1e7",
+    "foregroundColor": "#000000",
+    "selected": true,
+    "accessRole": "owner",
+    "defaultReminders": [
+        {
+            "method": "popup",
+            "minutes": 30
+        }
+    ],
+    "notificationSettings": {
+        "notifications": [
+            {
+                "type": "eventCreation",
+                "method": "email"
+            },
+            {
+                "type": "eventChange",
+                "method": "email"
+            },
+            {
+                "type": "eventCancellation",
+                "method": "email"
+            },
+            {
+                "type": "eventResponse",
+                "method": "email"
+            }
+        ]
+    },
+    "primary": true,
+    "conferenceProperties": {
+        "allowedConferenceSolutionTypes": [
+            "hangoutsMeet"
+        ]
+    }
+}
