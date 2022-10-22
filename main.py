@@ -81,6 +81,7 @@ def convert_values_to_workdays(target_name):
                 
                 date_key, the_date, the_day = get_date_info(row_index)  
                 
+                
                 if not date_key in workdays.keys():
                     workdays[date_key] = []
                 
@@ -122,12 +123,12 @@ def CALENDAR_setup():
     pickle.dump(credentials, open("token.pkl", "wb"))
     credentials = pickle.load(open("token.pkl", "rb"))
     service = build("calendar", "v3", credentials=credentials)
-    account_info = service.calendarList().list(maxResults=15).execute()
-    print(account_info)
+    account_events = service.calendarList().list(maxResults=15).execute()
+    print(account_events)
     
     # write_json(account_info['items'][2], 'account_info.json')
     
-    calendarId = account_info['items'][2]['id']
+    calendarId = account_events['items'][2]['id']
     result = service.events().list(calendarId=calendarId).execute()
     print(result)
     # Store the returned events of the calendar inside a json
