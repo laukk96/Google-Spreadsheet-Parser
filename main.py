@@ -45,7 +45,8 @@ def SPREADSHEET_get_values(link):
     # link = https://docs.google.com/spreadsheets/d/1AfCd8G-ogkbQPUe5SPBvbNUHUILDIned-JK7ssRSjMk/edit#gid=0
     link = link[link.find('/d/')+3:]
     SAMPLE_SPREADSHEET_ID = link[:link.find('/')]
-    print(f'{link} \n: {SAMPLE_SPREADSHEET_ID}')
+    # Print the spreadsheet id:
+    # print(f'{link} \n: {SAMPLE_SPREADSHEET_ID}')
     SAMPLE_RANGE_NAME = 'B3:J55'
 
     # creds = None
@@ -63,6 +64,21 @@ def SPREADSHEET_get_values(link):
 
 # write_json(result, 'resources\\schedule.json')
 
+test_cases = {
+    "KEVIN": "KEVIN JIN"
+}
+
+
+def name_found_covers_test_cases(target_name, box):
+    if not target_name in test_cases.keys():
+        print(f'{target_name} NOT FOUND IN TEST_CASES.KEYS(), normal.')
+        return True
+    elif target_name in test_cases.keys() and not test_cases[target_name] in box:
+        print(f'{target_name}: FOUND IN TEST_CASES.KEYS(), probably kevin.')
+        return True
+    else:
+        return False
+    
 workdays = {}
 
 def get_date_info(row_index):
@@ -76,9 +92,8 @@ def convert_values_to_workdays(target_name):
         for row_index in range(0, len(values[i])):
             # Change to uppercase
             values[i][row_index] = values[i][row_index].upper()
-            if target_name in values[i][row_index]:
+            if target_name in values[i][row_index] and name_found_covers_test_cases(target_name, values[i][row_index]):
                 print(values[i])
-                
                 date_key, the_date, the_day = get_date_info(row_index)  
                 
                 
@@ -93,12 +108,12 @@ def convert_values_to_workdays(target_name):
                 )
                 workdays[date_key].append(new_day)
 
-def print_workdays():
+def print_workdays(target_name):
     print(f'\nTop Row: Dates = {values[0]}')
-    print(f'Row 2: Days = {values[1]} \n')
+    print(f'Row 2: Days = {values[1]} \n\n')
     
+    print(f">> [ {target_name}'s Schedule ]")
     print('\n====================')
-    
     # Loop through the first row of dates (values[0])
     for row_index in range(2, len(values[0])):
         # Get date info (Returns an array of 3 string variables)
@@ -148,9 +163,14 @@ cls()
 # cls()
 print("Enter the link for the spreadsheet schedule: ")
 schedule_link = input()
-print("Enter the name of the person you're looking for: ")
-target_name = input().upper()
-
 SPREADSHEET_get_values(schedule_link)
-convert_values_to_workdays(target_name)
-print_workdays() 
+print()
+
+target_name = "TARGET"
+while (target_name != "EXIT"):
+    print("Enter the name of the person you're looking for: \n> Type \"exit\" to exit.")
+    target_name = input().upper()
+    convert_values_to_workdays(target_name)
+    print_workdays(target_name)
+    print("///////////////////////////////////////\n")
+    
